@@ -20,19 +20,19 @@ interface ITaskService {
 class TaskRepository implements ITaskRepository {
     private tasks: ITask[] = [];
 
-    addTask(task: ITask): void {
+    public addTask(task: ITask): void {
         this.tasks.push(task);
     }
 
-    removeTask(taskId: number): void {
+    public removeTask(taskId: number): void {
         this.tasks = this.tasks.filter(task => task.id !== taskId);
     }
 
-    getTasks(): ITask[] {
+    public getTasks(): ITask[] {
         return this.tasks;
     }
 
-    getTaskById(taskId: number): ITask | undefined {
+    public getTaskById(taskId: number): ITask | undefined {
         return this.tasks.find(task => task.id === taskId);
     }
 }
@@ -44,20 +44,20 @@ class TaskService implements ITaskService {
         this.taskRepository = taskRepository;
     }
 
-    createTask(title: string): ITask {
+    public createTask(title: string): ITask {
         const task: ITask = { id: Date.now(), title, completed: false };
         this.taskRepository.addTask(task);
         return task;
     }
 
-    completeTask(taskId: number): void {
+    public completeTask(taskId: number): void {
         const task = this.taskRepository.getTaskById(taskId);
         if (task) {
             task.completed = true;
         }
     }
 
-    getPendingTasks(): ITask[] {
+    public getPendingTasks(): ITask[] {
         return this.taskRepository.getTasks().filter(task => !task.completed);
     }
 }

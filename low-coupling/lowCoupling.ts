@@ -2,17 +2,17 @@ interface IEmailService {
     sendEmail(to: string, body: string): void;
 }
 
-interface IUser {
+interface IUserNotificationService {
     notify(message: string): void;
 }
 
 class EmailService implements IEmailService {
     public sendEmail(to: string, body: string): void {
-        console.log(`Email sent to ${to}: ${body}`);
+        console.log(`email sent to ${to}: ${body}`);
     }
 }
 
-class User implements IUser {
+class UserNotificationService implements IUserNotificationService {
     private email: string;
     private emailService: IEmailService;
 
@@ -28,5 +28,5 @@ class User implements IUser {
 
 // use case
 const emailService: IEmailService = new EmailService();
-const user: IUser = new User("user@example.com", emailService);
-user.notify("Hello, User!");
+const userNotificationService: IUserNotificationService = new UserNotificationService("user@example.com", emailService);
+userNotificationService.notify("hello, user!");
